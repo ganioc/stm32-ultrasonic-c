@@ -23,6 +23,7 @@
 #include "stm32l0xx_it.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "tim.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -53,9 +54,11 @@
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 extern uint8_t bKeyDown;
+extern TIM_HandleTypeDef htim21;
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
+extern TIM_HandleTypeDef htim21;
 extern UART_HandleTypeDef huart2;
 /* USER CODE BEGIN EV */
 
@@ -156,6 +159,20 @@ void EXTI2_3_IRQHandler(void)
 }
 
 /**
+  * @brief This function handles TIM21 global interrupt.
+  */
+void TIM21_IRQHandler(void)
+{
+  /* USER CODE BEGIN TIM21_IRQn 0 */
+
+  /* USER CODE END TIM21_IRQn 0 */
+  HAL_TIM_IRQHandler(&htim21);
+  /* USER CODE BEGIN TIM21_IRQn 1 */
+
+  /* USER CODE END TIM21_IRQn 1 */
+}
+
+/**
   * @brief This function handles USART2 global interrupt / USART2 wake-up interrupt through EXTI line 26.
   */
 void USART2_IRQHandler(void)
@@ -170,6 +187,10 @@ void USART2_IRQHandler(void)
 }
 
 /* USER CODE BEGIN 1 */
-
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
+	if(htim == TIM21){
+		off_LED();
+	}
+}
 /* USER CODE END 1 */
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

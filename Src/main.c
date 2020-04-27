@@ -21,6 +21,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "rtc.h"
+#include "tim.h"
 #include "usart.h"
 #include "gpio.h"
 
@@ -60,6 +61,9 @@ void SystemClock_Config(void);
 /* USER CODE BEGIN 0 */
 UART_HandleTypeDef huart2;
 uint8_t bKeyDown = 0;
+extern TIM_HandleTypeDef htim21;
+
+
 
 /* Private function prototypes -----------------------------------------------*/
 #ifdef __GNUC__
@@ -91,7 +95,7 @@ PUTCHAR_PROTOTYPE
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-
+	HAL_StatusTypeDef statusTim21;
   /* USER CODE END 1 */
   
 
@@ -115,8 +119,8 @@ int main(void)
   MX_GPIO_Init();
   MX_RTC_Init();
   MX_USART2_UART_Init();
+  MX_TIM21_Init();
   /* USER CODE BEGIN 2 */
-
 
 
   /* USER CODE END 2 */
@@ -134,8 +138,16 @@ int main(void)
 		  off_LED();
 		  printf("Key down\r\n");
 		  bKeyDown = 0;
+//		  if (HAL_TIM_OnePulse_Start(&htim2,) != HAL_OK){
+//
+//		  }else{
+//			  printf("one pulse failed\r\n");
+//		  }
+		  on_LED();
+		  HAL_TIM_Base_Start_IT(&htim21);
 	  }
-	  HAL_Delay(200);
+	  HAL_Delay(1000);
+	  printf("\r\none round\r\n");
   }
   /* USER CODE END 3 */
 }
@@ -153,10 +165,14 @@ void SystemClock_Config(void)
   /** Configure the main internal regulator output voltage 
   */
   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
+  /** Configure LSE Drive Capability 
+  */
+  HAL_PWR_EnableBkUpAccess();
+  __HAL_RCC_LSEDRIVE_CONFIG(RCC_LSEDRIVE_LOW);
   /** Initializes the CPU, AHB and APB busses clocks 
   */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_LSI|RCC_OSCILLATORTYPE_MSI;
-  RCC_OscInitStruct.LSIState = RCC_LSI_ON;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_LSE|RCC_OSCILLATORTYPE_MSI;
+  RCC_OscInitStruct.LSEState = RCC_LSE_ON;
   RCC_OscInitStruct.MSIState = RCC_MSI_ON;
   RCC_OscInitStruct.MSICalibrationValue = 0;
   RCC_OscInitStruct.MSIClockRange = RCC_MSIRANGE_5;
@@ -180,7 +196,7 @@ void SystemClock_Config(void)
   }
   PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USART2|RCC_PERIPHCLK_RTC;
   PeriphClkInit.Usart2ClockSelection = RCC_USART2CLKSOURCE_PCLK1;
-  PeriphClkInit.RTCClockSelection = RCC_RTCCLKSOURCE_LSI;
+  PeriphClkInit.RTCClockSelection = RCC_RTCCLKSOURCE_LSE;
   if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
   {
     Error_Handler();
