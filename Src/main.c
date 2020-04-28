@@ -150,7 +150,7 @@ int main(void)
 			printf("echo 2nd falling edge\r\n");
 
 		}
-		HAL_Delay(100);
+		HAL_Delay(1000);
 		printf(".\r\n");
 	}
   /* USER CODE END 3 */
