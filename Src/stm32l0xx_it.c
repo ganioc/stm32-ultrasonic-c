@@ -205,8 +205,8 @@ void USART2_IRQHandler(void)
 // (tim_baseHandle->Instance==TIM21)
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 	if(htim->Instance == TIM21){
-		bTime21 = 0;
-
+		// bTime21 = 0;
+		toggle_LED();
 	}
 }
 /* USER CODE END 1 */
