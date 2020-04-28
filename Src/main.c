@@ -135,13 +135,13 @@ int main(void)
 			HAL_TIM_Base_Start_IT(&htim21);
 			do{;}while (bTime21 == 1) ;
 //
-//			off_Trig();
-//			off_LED();
+
 			bMeasure = 1;
 			HAL_TIM_Base_Stop_IT(&htim21);
 
 			// get the distance measuring
 			do{;}while(bMeasure == 1);
+
 			on_LED();
 			printf("echo 1st rising edge\r\n");
 //
