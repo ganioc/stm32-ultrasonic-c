@@ -140,6 +140,7 @@ int main(void)
 
 			// HAL_Delay(10);
 			bMeasure = 1;
+			mCounter=0;
 			// get the distance measuring
 			do{;}while(bMeasure == 1);
 			HAL_TIM_Base_Start_IT(&htim21);

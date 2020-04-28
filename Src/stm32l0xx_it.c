@@ -217,9 +217,11 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 //			toggle_LED();
 			toggle_Trig();
 		}
-		if(bMeasure == 1){
-			mCounter++;
+		if(bMeasure == 2){
+			mCounter+=1;
 		}
+
+		// toggle_LED();
 
 	}
 }
