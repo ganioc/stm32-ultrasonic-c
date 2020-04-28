@@ -49,13 +49,15 @@
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN PFP */
-
+extern int bMeasure;
+extern int bTime21;
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 extern uint8_t bKeyDown;
 extern TIM_HandleTypeDef htim21;
+extern int mCounter;
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
@@ -216,7 +218,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 			toggle_Trig();
 		}
 		if(bMeasure == 1){
-
+			mCounter++;
 		}
 
 	}

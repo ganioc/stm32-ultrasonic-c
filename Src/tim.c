@@ -23,7 +23,7 @@
 /* USER CODE BEGIN 0 */
 int bTime21 = 0;
 int bMeasure = 0;
-int bCounter = 0; // counter of TIM21
+int mCounter = 0; // counter of TIM21
 /* USER CODE END 0 */
 
 TIM_HandleTypeDef htim21;

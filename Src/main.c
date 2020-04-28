@@ -48,7 +48,8 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-
+extern int bMeasure;
+extern int bTime21;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -62,7 +63,7 @@ void SystemClock_Config(void);
 UART_HandleTypeDef huart2;
 uint8_t bKeyDown = 0;
 extern TIM_HandleTypeDef htim21;
-
+extern int mCounter;
 /* Private function prototypes -----------------------------------------------*/
 #ifdef __GNUC__
 /* With GCC, small printf (option LD Linker->Libraries->Small printf
@@ -139,17 +140,18 @@ int main(void)
 
 			// HAL_Delay(10);
 			bMeasure = 1;
-
 			// get the distance measuring
 			do{;}while(bMeasure == 1);
 			HAL_TIM_Base_Start_IT(&htim21);
-			printf("echo 1st rising edge\r\n");
+			// printf("echo 1st rising edge\r\n");
 			on_LED();
 //
 			do{;}while(bMeasure ==2);
 			off_LED();
-			printf("echo 2nd falling edge\r\n");
+
 			HAL_TIM_Base_Stop_IT(&htim21);
+			printf("echo 2nd falling edge\r\n");
+			printf("mCounter: %d\r\n",mCounter);
 
 		}
 		HAL_Delay(1000);
