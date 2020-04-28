@@ -165,7 +165,7 @@ void EXTI2_3_IRQHandler(void)
 void EXTI4_15_IRQHandler(void)
 {
   /* USER CODE BEGIN EXTI4_15_IRQn 0 */
-	printf("kick\r\n");
+// 	printf("kick\r\n");
 	  if(bMeasure == 1){
 		  bMeasure = 2;
 	  }else if( bMeasure == 2){

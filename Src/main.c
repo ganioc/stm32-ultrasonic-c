@@ -136,8 +136,9 @@ int main(void)
 			do{;}while (bTime21 == 1) ;
 //
 
-			bMeasure = 1;
+
 			HAL_TIM_Base_Stop_IT(&htim21);
+			bMeasure = 1;
 
 			// get the distance measuring
 			do{;}while(bMeasure == 1);
