@@ -135,20 +135,21 @@ int main(void)
 			HAL_TIM_Base_Start_IT(&htim21);
 			do{;}while (bTime21 == 1) ;
 //
-
-
 			HAL_TIM_Base_Stop_IT(&htim21);
+
+			// HAL_Delay(10);
 			bMeasure = 1;
 
 			// get the distance measuring
 			do{;}while(bMeasure == 1);
-
-			on_LED();
+			HAL_TIM_Base_Start_IT(&htim21);
 			printf("echo 1st rising edge\r\n");
+			on_LED();
 //
 			do{;}while(bMeasure ==2);
 			off_LED();
 			printf("echo 2nd falling edge\r\n");
+			HAL_TIM_Base_Stop_IT(&htim21);
 
 		}
 		HAL_Delay(1000);
