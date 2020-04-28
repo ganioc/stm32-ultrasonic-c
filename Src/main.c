@@ -92,7 +92,6 @@ PUTCHAR_PROTOTYPE {
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-	HAL_StatusTypeDef statusTim21;
   /* USER CODE END 1 */
   
 
@@ -130,8 +129,7 @@ int main(void)
 		if (bKeyDown == 1) {
 			printf("Key down\r\n");
 			bKeyDown = 0;
-//
-			on_LED();
+
 			on_Trig();
 			bTime21 = 1;
 			HAL_TIM_Base_Start_IT(&htim21);
@@ -144,9 +142,11 @@ int main(void)
 
 			// get the distance measuring
 			do{;}while(bMeasure == 1);
+			on_LED();
 			printf("echo 1st rising edge\r\n");
 //
 			do{;}while(bMeasure ==2);
+			off_LED();
 			printf("echo 2nd falling edge\r\n");
 
 		}
