@@ -24,6 +24,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "tim.h"
+#include "gpio.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -152,7 +153,7 @@ void EXTI2_3_IRQHandler(void)
   /* USER CODE END EXTI2_3_IRQn 0 */
   HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_2);
   /* USER CODE BEGIN EXTI2_3_IRQn 1 */
-  if(bKeyDown == 0){
+  if(bKeyDown == 0 && bTime21 == 0){
 	  bKeyDown = 1;
   }
   /* USER CODE END EXTI2_3_IRQn 1 */
@@ -204,7 +205,8 @@ void USART2_IRQHandler(void)
 // (tim_baseHandle->Instance==TIM21)
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 	if(htim->Instance == TIM21){
-		off_LED();
+		bTime21 = 0;
+
 	}
 }
 /* USER CODE END 1 */

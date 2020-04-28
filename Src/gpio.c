@@ -118,6 +118,12 @@ void on_Ultra(){
 void off_Ultra(){
 	HAL_GPIO_WritePin(GPIOB,GPIO_PIN_14, RESET);
 }
+void on_Trig(){
+	HAL_GPIO_WritePin(GPIOB,GPIO_PIN_15, SET);
+}
+void off_Trig(){
+	HAL_GPIO_WritePin(GPIOB,GPIO_PIN_15, RESET);
+}
 /* USER CODE END 2 */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

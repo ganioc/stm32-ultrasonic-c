@@ -41,6 +41,9 @@ void MX_GPIO_Init(void);
 void toggle_LED();
 void on_LED();
 void off_LED();
+void on_Ultra();
+void on_Trig();
+void off_Trig();
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus
