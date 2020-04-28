@@ -124,6 +124,9 @@ void on_Trig(){
 void off_Trig(){
 	HAL_GPIO_WritePin(GPIOB,GPIO_PIN_15, RESET);
 }
+void toggle_Trig(){
+	HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_15);
+}
 /* USER CODE END 2 */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

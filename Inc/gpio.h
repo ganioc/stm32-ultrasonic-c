@@ -44,6 +44,7 @@ void off_LED();
 void on_Ultra();
 void on_Trig();
 void off_Trig();
+void toggle_Trig();
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus

@@ -118,7 +118,7 @@ int main(void)
   MX_USART2_UART_Init();
   MX_TIM21_Init();
   /* USER CODE BEGIN 2 */
-	HAL_TIM_Base_Start_IT(&htim21);
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -131,15 +131,15 @@ int main(void)
 			printf("Key down\r\n");
 			bKeyDown = 0;
 //
-//			on_LED();
-//			on_Trig();
-//			bTime21 = 1;
-//			HAL_TIM_Base_Start_IT(&htim21);
-//			while (bTime21 == 1) ;
+			on_LED();
+			on_Trig();
+			bTime21 = 1;
+			HAL_TIM_Base_Start_IT(&htim21);
+			while (bTime21 == 1) ;
 //
 //			off_Trig();
 //			off_LED();
-//			HAL_TIM_Base_Stop_IT(&htim21);
+			HAL_TIM_Base_Stop_IT(&htim21);
 		}
 		HAL_Delay(100);
 		printf(".\r\n");
