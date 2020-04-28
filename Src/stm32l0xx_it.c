@@ -155,7 +155,7 @@ void EXTI2_3_IRQHandler(void)
   /* USER CODE END EXTI2_3_IRQn 0 */
   HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_2);
   /* USER CODE BEGIN EXTI2_3_IRQn 1 */
-  if(bKeyDown == 0 && bTime21 == 0){
+  if(bKeyDown == 0 && bTime21 == US_STATE_TRIG_END){
 	  bKeyDown = 1;
   }
   /* USER CODE END EXTI2_3_IRQn 1 */
@@ -167,11 +167,10 @@ void EXTI2_3_IRQHandler(void)
 void EXTI4_15_IRQHandler(void)
 {
   /* USER CODE BEGIN EXTI4_15_IRQn 0 */
-// 	printf("kick\r\n");
-	  if(bMeasure == 1){
-		  bMeasure = 2;
-	  }else if( bMeasure == 2){
-		  bMeasure = 0;
+	  if(bMeasure == US_STATE_MEASURE_START){
+		  bMeasure = US_STATE_MEASURE_CONTINUE;
+	  }else if( bMeasure == US_STATE_MEASURE_CONTINUE){
+		  bMeasure = US_STATE_MEASURE_END;
 	  }
   /* USER CODE END EXTI4_15_IRQn 0 */
   HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_8);
@@ -212,17 +211,11 @@ void USART2_IRQHandler(void)
 // (tim_baseHandle->Instance==TIM21)
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 	if(htim->Instance == TIM21){
-		if(bTime21 == 1){
-			bTime21 = 0;
-//			toggle_LED();
-			toggle_Trig();
-		}
-		if(bMeasure == 2){
+		if(bTime21 == US_STATE_TRIG_START){
+			bTime21 = US_STATE_TRIG_END;
+		}else if(bMeasure == US_STATE_MEASURE_CONTINUE){
 			mCounter+=1;
 		}
-
-		// toggle_LED();
-
 	}
 }
 /* USER CODE END 1 */

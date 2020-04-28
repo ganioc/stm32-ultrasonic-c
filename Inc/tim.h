@@ -27,19 +27,25 @@
 #include "main.h"
 
 /* USER CODE BEGIN Includes */
-
+#include "gpio.h"
 /* USER CODE END Includes */
 
 extern TIM_HandleTypeDef htim21;
 
 /* USER CODE BEGIN Private defines */
+#define US_STATE_TRIG_START      0x10
+#define US_STATE_TRIG_END        0x11
+#define US_STATE_MEASURE_START     0x20
+#define US_STATE_MEASURE_CONTINUE  0x21
+#define US_STATE_MEASURE_END       0x22
+
 
 /* USER CODE END Private defines */
 
 void MX_TIM21_Init(void);
 
 /* USER CODE BEGIN Prototypes */
-
+int get_Ultra_Sonic();
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus

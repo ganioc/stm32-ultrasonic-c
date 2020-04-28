@@ -102,7 +102,7 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-
+  int nDistance = 0;
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -131,29 +131,9 @@ int main(void)
 			printf("Key down\r\n");
 			bKeyDown = 0;
 
-			on_Trig();
-			bTime21 = 1;
-			HAL_TIM_Base_Start_IT(&htim21);
-			do{;}while (bTime21 == 1) ;
-//
-			HAL_TIM_Base_Stop_IT(&htim21);
-
-			// HAL_Delay(10);
-			bMeasure = 1;
-			mCounter=0;
-			// get the distance measuring
-			do{;}while(bMeasure == 1);
-			HAL_TIM_Base_Start_IT(&htim21);
-			// printf("echo 1st rising edge\r\n");
-			on_LED();
-//
-			do{;}while(bMeasure ==2);
-			off_LED();
-
-			HAL_TIM_Base_Stop_IT(&htim21);
+			nDistance = get_Ultra_Sonic();
 			printf("echo 2nd falling edge\r\n");
-			printf("mCounter: %d\r\n",mCounter);
-
+			printf("mCounter: %d\r\n",nDistance);
 		}
 		HAL_Delay(1000);
 		printf(".\r\n");

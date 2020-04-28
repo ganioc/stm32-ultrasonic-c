@@ -21,7 +21,7 @@
 #include "tim.h"
 
 /* USER CODE BEGIN 0 */
-int bTime21 = 0;
+int bTime21 = US_STATE_TRIG_END;
 int bMeasure = 0;
 int mCounter = 0; // counter of TIM21
 /* USER CODE END 0 */
@@ -98,7 +98,30 @@ void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* tim_baseHandle)
 } 
 
 /* USER CODE BEGIN 1 */
+int get_Ultra_Sonic(){
+	// raise high level
+	on_Trig();
+	bTime21 = US_STATE_TRIG_START;
+	// start the timer
+	HAL_TIM_Base_Start_IT(&htim21);
+	do{;}while (bTime21 == US_STATE_TRIG_START) ;
+	toggle_Trig();
+	HAL_TIM_Base_Stop_IT(&htim21);
 
+	bMeasure = US_STATE_MEASURE_START;
+	mCounter=0;
+	// get the distance measuring
+	do{;}while(bMeasure == US_STATE_MEASURE_START);
+	HAL_TIM_Base_Start_IT(&htim21);
+	on_LED();
+
+	do{;}while(bMeasure == US_STATE_MEASURE_CONTINUE);
+	off_LED();
+
+	HAL_TIM_Base_Stop_IT(&htim21);
+
+	return mCounter;
+}
 /* USER CODE END 1 */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
