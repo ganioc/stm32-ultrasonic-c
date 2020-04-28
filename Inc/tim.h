@@ -28,6 +28,7 @@
 
 /* USER CODE BEGIN Includes */
 extern int bTime21;
+extern int bMeasure;
 /* USER CODE END Includes */
 
 extern TIM_HandleTypeDef htim21;

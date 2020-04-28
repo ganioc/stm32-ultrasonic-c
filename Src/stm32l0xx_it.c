@@ -165,7 +165,11 @@ void EXTI2_3_IRQHandler(void)
 void EXTI4_15_IRQHandler(void)
 {
   /* USER CODE BEGIN EXTI4_15_IRQn 0 */
-
+	  if(bMeasure == 1){
+		  bMeasure = 2;
+	  }else if( bMeasure == 2){
+		  bMeasure = 0;
+	  }
   /* USER CODE END EXTI4_15_IRQn 0 */
   HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_8);
   /* USER CODE BEGIN EXTI4_15_IRQn 1 */
@@ -205,9 +209,15 @@ void USART2_IRQHandler(void)
 // (tim_baseHandle->Instance==TIM21)
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 	if(htim->Instance == TIM21){
-		bTime21 = 0;
-		toggle_LED();
-		toggle_Trig();
+		if(bTime21 == 1){
+			bTime21 = 0;
+			toggle_LED();
+			toggle_Trig();
+		}
+		if(bMeasure == 1){
+
+		}
+
 	}
 }
 /* USER CODE END 1 */
