@@ -38,7 +38,7 @@ extern TIM_HandleTypeDef htim21;
 #define US_STATE_MEASURE_START     0x20
 #define US_STATE_MEASURE_CONTINUE  0x21
 #define US_STATE_MEASURE_END       0x22
-
+#define US_STATE_MEASURE_MAX_COUNTER  0x1FFF
 
 /* USER CODE END Private defines */
 
@@ -46,6 +46,8 @@ void MX_TIM21_Init(void);
 
 /* USER CODE BEGIN Prototypes */
 int get_Ultra_Sonic();
+float get_TIM21_Dur();
+float get_Distance(int steps);
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus

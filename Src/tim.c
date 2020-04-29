@@ -111,16 +111,46 @@ int get_Ultra_Sonic(){
 	bMeasure = US_STATE_MEASURE_START;
 	mCounter=0;
 	// get the distance measuring
-	do{;}while(bMeasure == US_STATE_MEASURE_START);
+	// If ultra-sonic module doesnt respond, it will stuck here!
 	HAL_TIM_Base_Start_IT(&htim21);
-	on_LED();
 
-	do{;}while(bMeasure == US_STATE_MEASURE_CONTINUE);
+	while(1){
+		if(bMeasure != US_STATE_MEASURE_START){
+			break;
+		}
+		if(mCounter >= (US_STATE_MEASURE_MAX_COUNTER)){
+			// so it will jump out if timeout
+			return -1;
+		}
+	}
+
+	on_LED();
+	mCounter = 0;
+
+	while(1){
+		if(bMeasure != US_STATE_MEASURE_CONTINUE){
+			break;
+		}
+		if(mCounter >= (US_STATE_MEASURE_MAX_COUNTER)){
+			return -1;
+		}
+	}
 	off_LED();
 
 	HAL_TIM_Base_Stop_IT(&htim21);
 
 	return mCounter;
+}
+// return ms
+float get_TIM21_Dur(){
+	int period = 0xff;
+	float freq = 4194000.0; //Hz
+	float dur = (float)(1/freq) * 1000; // ms
+	return period * dur;
+}
+// return cm
+float get_Distance(int steps){
+	return steps * get_TIM21_Dur()*0.17;
 }
 /* USER CODE END 1 */
 

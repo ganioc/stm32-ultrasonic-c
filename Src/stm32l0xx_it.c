@@ -213,7 +213,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 	if(htim->Instance == TIM21){
 		if(bTime21 == US_STATE_TRIG_START){
 			bTime21 = US_STATE_TRIG_END;
-		}else if(bMeasure == US_STATE_MEASURE_CONTINUE){
+		}else if(bMeasure == US_STATE_MEASURE_START || bMeasure == US_STATE_MEASURE_CONTINUE){
 			mCounter+=1;
 		}
 	}
