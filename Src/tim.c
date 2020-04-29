@@ -98,15 +98,30 @@ void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* tim_baseHandle)
 } 
 
 /* USER CODE BEGIN 1 */
-int get_Ultra_Sonic(){
-	// raise high level
-	on_Trig();
+int __attribute__((optimize("O0"))) get_Ultra_Sonic(){
+	// 4194 kHZ MSI clock
+	// return n  33ms -> 534
+	//  32ms -> 552
+	//  14ms -> 221
+	// 11.4ms-> 183
+	// 8.8ms -> 137
+	// 7.4   -> 108
+	//  3.4ms-> 50
+	//	1.5ms -> 18
+	// return -1 abnormal module behavior
+
+
 	bTime21 = US_STATE_TRIG_START;
 	// start the timer
 	HAL_TIM_Base_Start_IT(&htim21);
-	do{;}while (bTime21 == US_STATE_TRIG_START) ;
-	toggle_Trig();
+	// raise high level, 34 us, pulse generated trig signal
+	on_Trig();
+	do{
+		;
+	}while (bTime21 == US_STATE_TRIG_START) ;
+
 	HAL_TIM_Base_Stop_IT(&htim21);
+	off_Trig();
 
 	bMeasure = US_STATE_MEASURE_START;
 	mCounter=0;
@@ -124,7 +139,7 @@ int get_Ultra_Sonic(){
 		}
 	}
 
-	on_LED();
+	// on_LED();
 	mCounter = 0;
 
 	while(1){
@@ -135,7 +150,7 @@ int get_Ultra_Sonic(){
 			return -1;
 		}
 	}
-	off_LED();
+	// off_LED();
 
 	HAL_TIM_Base_Stop_IT(&htim21);
 
@@ -149,9 +164,7 @@ float get_TIM21_Dur(){
 	return period * dur;
 }
 // return cm
-float get_Distance(int steps){
-	return steps * get_TIM21_Dur()*0.17;
-}
+
 /* USER CODE END 1 */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
